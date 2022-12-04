@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <style>
+
+        #caja
+        {
+         width: 500px;
+         height: 630px;
+         border-radius: 15px;
+        
+         border: 10px solid rgba(5, 67, 95, 0.651); ; 
+         margin-left: 400px; 
+         position: fixed;
+         background-color:gray;
+         background-image: url("plata.png");
+        }
+
+        #pantalla{
+            border: 15px solid rgba(5, 67, 95, 0.651);
+            margin-top: 10px;
+            margin-left: 10px;
+            width: 450px;
+         height: 180px;
+        border-radius: 30px;         
+
+       
+        }
+        #pantalla1{
+           position: absolute;
+            width: 450px;
+         height: 180px;
+         margin-left: -5px;
+         margin-top: -5px;
+         border-radius: 30px;
+         border: 4px solid rgb(173, 182, 192); 
+        }
+        #teclas
+        {
+        
+            margin-top: 10px;
+            margin-left: 10px;
+            width: 350px;
+         height: 380px;
+        
+      position: fixed;
+      display: block;
+         column-count: 3;
+        }
+       
+
+        .num{
+            width: 90px;
+         height: 90px; 
+       
+         
+        }
+        .lnum{
+         margin-top: 10px;
+            width: 80px;
+         height: 80px; 
+         font-size: 70px; 
+         border-radius:10px;
+         
+        }
+     #pantalla1{
+ 
+  font-size: 70px;
+  direction: lrt;
+  text-align: end;
+  content: "";
+  clear: both;
+ 
+     }
+
+        #mate
+        {
+            margin-top: 15px;
+            margin-left: 370px;
+            width: 100px;
+         height: 380px;
+        
+        }
+
+        .lm{
+        
+            display: inline-table;
+            margin-top: 4px;
+            width: 50px;
+         height: 50px; 
+      
+         
+        }
+        .r{
+          
+            width: 100px;
+         height: 60px; 
+         font-size: 45px; 
+         border-radius:10px;
+        }
+    </style>
+    <script>
+   var n="";
+   var cont=0;
+ 
+   var lista= new Array(3);
+ var y=0;
+        function digito( n)
+        {
+            var dato=document.getElementById("pantalla1").value;
+         
+            if(n==".")  
+            { 
+                cont+=1;
+                if(cont<=1 && n==".")
+                  {
+                    document.getElementById("pantalla1").value=dato+n;
+                  }
+                 else  if(cont>=1 && n==".")
+                  {
+                    document.getElementById("pantalla1").value=dato;
+                  } 
+
+
+             }
+             else
+             {
+                document.getElementById("pantalla1").value=dato+n;  
+                 
+
+             }
+        }
+
+
+    function guardar(y,i)
+    {
+        lista[y]=i;
+     
+    }
+    function resultado()
+    {
+       
+        if(lista[1]=="+")
+        {
+         var rt=Number.parseFloat(lista[0])+Number.parseFloat(lista[2]);
+        document.getElementById("pantalla1").value=rt.toFixed(2)
+     
+        }
+    
+       else if(lista[1]=="-")
+        {
+         var rt=Number.parseFloat(lista[0])-Number.parseFloat(lista[2]);
+        document.getElementById("pantalla1").value=rt.toFixed(2);
+     
+        }
+        if(lista[1]=="*")
+        {
+         var rt=Number.parseFloat(lista[0])*Number.parseFloat(lista[2]);
+        document.getElementById("pantalla1").value=rt.toFixed(2);
+     
+        }
+        if(lista[1]=="/")
+        {
+       
+        if(lista[2]>0)
+        {
+            var rt=Number.parseFloat(lista[0])/Number.parseFloat(lista[2]);
+        document.getElementById("pantalla1").value=rt.toFixed(2);
+        }
+       else if(lista[2]<=0)
+          {
+            document.getElementById("pantalla1").value="Error Not Divisble/0";
+          }
+        }
+
+
+
+
+
+
+    }
+
+        function operacion(m)
+        {
+         if(m=="+")
+         {
+            var toma1=document.getElementById("pantalla1").value;
+           guardar(0,toma1);
+           guardar(1,"+");
+           document.getElementById("pantalla1").value="";
+           cont=0;
+          }
+          else if(m=="-")
+          {
+            var toma1=document.getElementById("pantalla1").value;
+           guardar(0,toma1);
+           guardar(1,"-");
+           document.getElementById("pantalla1").value="";
+           cont=0;
+          } 
+          else if(m=="*")
+          {
+            var toma1=document.getElementById("pantalla1").value;
+           guardar(0,toma1);
+           guardar(1,"*");
+           document.getElementById("pantalla1").value="";
+           cont=0;
+          } 
+          else if(m=="/")
+          {
+            var toma1=document.getElementById("pantalla1").value;
+           guardar(0,toma1);
+           guardar(1,"/");
+           document.getElementById("pantalla1").value="";
+           cont=0;
+          }
+          else if (m=="=")
+          {
+            var toma2=document.getElementById("pantalla1").value;
+           guardar(2,toma2);
+          resultado();
+          }
+          else if(m=="e")
+          {
+            document.getElementById("pantalla1").value="";
+            cont=0;
+            guardar(0,0);
+            guardar(1,"--");
+            guardar(2,0);
+            resultado();
+          }
+        }
+    </script>
+</head>
+<body>
+
+<div id="caja">
+
+    <div id="pantalla">
+        <input type="text" id="pantalla1" value="">
+    </div>
+    <div id="teclas">
+<div class="num">
+    <input type="button" class="lnum" onclick="digito(7)" value="7"> 
+</div>
+<div class="num">
+    <input type="button" class="lnum" onclick="digito(4)"  value="4"> 
+</div>
+<div class="num">
+    <input type="button" class="lnum" onclick="digito(1)"  value="1"> 
+</div>
+<div class="num">
+    <input type="button" class="lnum" onclick="digito(0)"  value="0"> 
+</div>
+<div class="num">
+    <input type="button" class="lnum" onclick="digito(8)"  value="8"> 
+</div>
+<div class="num">
+    <input type="button" class="lnum" onclick="digito(5)"  value="5"> 
+</div>
+<div class="num">
+    <input type="button" class="lnum" onclick="digito(2)"  value="2"> 
+</div>
+<div class="num">
+    <input type="button" class="lnum" onclick="digito('.')"  value="."> 
+</div>
+<div class="num">
+    <input type="button" class="lnum" onclick="digito(9)"  value="9"> 
+</div>
+<div class="num">
+    <input type="button" class="lnum" onclick="digito(6)"  value="6"> 
+</div>
+<div class="num">
+    <input type="button" class="lnum" onclick="digito(3)"  value="3"> 
+</div>
+
+</div>
+<div id="mate">
+    <div class="lm">
+        <input type="button" class="r" onclick="operacion('e')" value="C/E">
+    </div>
+    <div class="lm">
+        <input type="button" class="r"onclick="operacion('=')" value="=">
+    </div>
+    <div class="lm">
+        <input type="button" class="r"onclick="operacion('+')" value="+">
+    </div>
+    <div class="lm">
+        <input type="button" class="r"onclick="operacion('-')" value="-">
+    </div>
+    <div class="lm">
+        <input type="button" class="r"onclick="operacion('*')" value="*">
+    </div>
+    <div class="lm">
+        <input type="button"class="r" onclick="operacion('/')" value="/">
+    </div>
+     
+</div>
+
+
+
+</body>
+</html>
